@@ -1,5 +1,5 @@
 def project = 'emea-sa-demo'
-def  appName = 'gceme'
+def  appName = 'gceme-dcanadillas'
 def  feSvcName = "${appName}-frontend"
 def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
@@ -85,7 +85,7 @@ spec:
           sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${imageTag}#' ./k8s/production/*.yaml")
           sh("kubectl --namespace=staging apply -f k8s/services/")
           sh("kubectl --namespace=staging apply -f k8s/production/")
-          sh("echo http://`kubectl --namespace=production get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
+          sh("echo http://`kubectl --namespace=staging get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
         }
       }
     }

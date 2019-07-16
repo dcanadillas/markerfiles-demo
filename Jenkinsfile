@@ -15,6 +15,7 @@ metadata:
 labels:
   component: ci
 spec:
+  serviceAccount: jenkins
   containers:
   - name: golang
     image: golang:1.10
